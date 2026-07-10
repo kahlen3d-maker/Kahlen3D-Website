@@ -30,7 +30,7 @@ export function Industries() {
           subtitle={t.industries.subtitle}
         />
 
-        <div className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {t.industries.items.map((industry, i) => {
             const Icon = icons[i] ?? Factory;
             return (
@@ -40,12 +40,12 @@ export function Industries() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.55, delay: (i % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="group flex items-center gap-4 rounded-2xl border border-graphite-100 bg-graphite-50/50 p-5 transition-colors duration-300 hover:border-brand-200 hover:bg-white dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-brand-500/40 dark:hover:bg-white/[0.06]"
+                className="group flex flex-col items-start gap-2.5 rounded-2xl border border-graphite-100 bg-graphite-50/50 p-4 transition-colors duration-300 hover:border-brand-200 hover:bg-white dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-brand-500/40 dark:hover:bg-white/[0.06] sm:flex-row sm:items-center sm:gap-4 sm:p-5"
               >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-graphite-500 shadow-soft transition-colors duration-300 group-hover:text-brand-500 dark:bg-graphite-800 dark:text-graphite-300 dark:group-hover:text-brand-300">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-graphite-500 shadow-soft transition-colors duration-300 group-hover:text-brand-500 dark:bg-graphite-800 dark:text-graphite-300 dark:group-hover:text-brand-300 sm:h-11 sm:w-11">
                   <Icon size={20} strokeWidth={1.8} />
                 </span>
-                <span className="font-display text-[0.95rem] font-semibold leading-tight text-graphite-700 dark:text-graphite-100">
+                <span className="w-full min-w-0 hyphens-auto break-words font-display text-sm font-semibold leading-tight text-graphite-700 dark:text-graphite-100 sm:w-auto sm:text-[0.95rem]">
                   {industry}
                 </span>
               </motion.div>

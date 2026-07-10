@@ -106,8 +106,8 @@ const dictionaries = {
       badge: "Über Kahlen3D",
       title: "Ein junges Unternehmen mit klarem Anspruch",
       paragraphs: [
-        "Kahlen3D ist ein junges Unternehmen im Bereich der additiven Fertigung. Unser Anspruch ist es, technische Bauteile in verlässlicher Qualität herzustellen – von der ersten Idee bis zum einsatzbereiten Teil.",
-        "Wir verbinden moderne Fertigungstechnik mit sorgfältiger Konstruktion und einem hohen Anspruch an Präzision. Statt großer Versprechen zählt für uns nachvollziehbare Qualität und ein ehrlicher, direkter Austausch.",
+        "Angefangen hat alles mit einem einzigen 3D-Drucker – zunächst rein hobbymäßig, aus Begeisterung für Technik, Konstruktion und das Fertigen eigener Teile. Aus dem Hobby wurden mit der Zeit mehr Drucker, mehr Erfahrung und immer mehr Kundenaufträge.",
+        "Heute steht Kahlen3D für additive Fertigung mit Anspruch: technische Bauteile in verlässlicher Qualität – von der ersten Idee bis zum einsatzbereiten Teil. Geblieben ist, was von Anfang an zählte – die Leidenschaft fürs Detail, ehrliche Beratung und der Anspruch an Präzision statt großer Versprechen.",
       ],
       values: [
         { title: "Präzision", text: "Sorgfältige Prozesse für maßhaltige, reproduzierbare Ergebnisse." },
@@ -253,8 +253,8 @@ const dictionaries = {
       badge: "About Kahlen3D",
       title: "A young company with a clear ambition",
       paragraphs: [
-        "Kahlen3D is a young company in the field of additive manufacturing. Our ambition is to produce technical parts in reliable quality – from the first idea to the ready-to-use part.",
-        "We combine modern manufacturing technology with careful design and a high standard of precision. Instead of big promises, what counts for us is verifiable quality and honest, direct communication.",
+        "It all started with a single 3D printer – at first purely as a hobby, driven by a passion for technology, design and making our own parts. Over time, the hobby grew into more printers, more experience and more and more customer projects.",
+        "Today, Kahlen3D stands for additive manufacturing with ambition: technical parts in reliable quality – from the first idea to the ready-to-use part. What has remained is what mattered from day one – an eye for detail, honest advice and a focus on precision instead of big promises.",
       ],
       values: [
         { title: "Precision", text: "Careful processes for dimensionally accurate, reproducible results." },
