@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="K3D">
+  <rect x="8" y="18" width="84" height="10" rx="2" fill="#2F7D4A"/>
+  <g fill="#F4B400">
+    <rect x="42" y="12" width="16" height="22" rx="2"/>
+    <rect x="33" y="34" width="34" height="24" rx="2.5"/>
+    <rect x="43" y="58" width="14" height="7" rx="1"/>
+    <path d="M42 65 H58 L51.5 78 V86 H48.5 V78 Z"/>
+  </g>
+</svg>

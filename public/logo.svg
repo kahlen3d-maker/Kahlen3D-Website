@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 300" fill="none" role="img" aria-label="Kahlen3D">
+  <!-- Extruder-Signet -->
+  <g transform="translate(70,6) scale(1.2)">
+    <rect x="8" y="18" width="84" height="10" rx="2" fill="#2F7D4A"/>
+    <g fill="#F4B400">
+      <rect x="42" y="12" width="16" height="22" rx="2"/>
+      <rect x="33" y="34" width="34" height="24" rx="2.5"/>
+      <rect x="43" y="58" width="14" height="7" rx="1"/>
+      <path d="M42 65 H58 L51.5 78 V86 H48.5 V78 Z"/>
+    </g>
+  </g>
+  <!-- Wortmarke -->
+  <text x="130" y="212" text-anchor="middle"
+        font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="76" font-weight="800"
+        letter-spacing="1" fill="#2F7D4A">K3D</text>
+  <text x="130" y="258" text-anchor="middle"
+        font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="600"
+        letter-spacing="9" fill="#9AA0A6">KAHLEN3D</text>
+</svg>
