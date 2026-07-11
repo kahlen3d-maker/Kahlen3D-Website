@@ -3,43 +3,63 @@ import nodemailer from "nodemailer";
 
 export const runtime = "nodejs";
 
-type ContactPayload = {
-  name?: string;
-  company?: string;
-  email?: string;
-  phone?: string;
-  message?: string;
-  website?: string; // Honeypot – muss leer bleiben
-};
+const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // 4 MB gesamt
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const isAcceptedType = (type: string) =>
+  type.startsWith("image/") || type === "application/pdf";
 const escapeHtml = (v: string) =>
   v.replace(/[&<>"']/g, (c) => (
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string
   ));
 
 export async function POST(req: Request) {
-  let data: ContactPayload;
+  let form: FormData;
   try {
-    data = await req.json();
+    form = await req.formData();
   } catch {
-    return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "invalid_request" }, { status: 400 });
   }
 
-  // Spam-Schutz: wenn das versteckte Feld gefüllt ist, still verwerfen.
-  if (data.website && data.website.trim() !== "") {
+  const get = (k: string) => String(form.get(k) ?? "").trim();
+
+  // Spam-Schutz: Honeypot gefüllt -> still verwerfen.
+  if (get("website") !== "") {
     return NextResponse.json({ ok: true });
   }
 
-  const name = (data.name ?? "").trim();
-  const email = (data.email ?? "").trim();
-  const message = (data.message ?? "").trim();
-  const company = (data.company ?? "").trim();
-  const phone = (data.phone ?? "").trim();
+  const name = get("name");
+  const email = get("email");
+  const message = get("message");
+  const company = get("company");
+  const phone = get("phone");
 
   if (!name || !email || !message || !isEmail(email)) {
     return NextResponse.json({ ok: false, error: "validation" }, { status: 422 });
   }
+
+  // Anhänge einsammeln und prüfen
+  const rawFiles = form
+    .getAll("attachments")
+    .filter((v): v is File => v instanceof File && v.size > 0);
+
+  for (const f of rawFiles) {
+    if (!isAcceptedType(f.type)) {
+      return NextResponse.json({ ok: false, error: "bad_type" }, { status: 415 });
+    }
+  }
+  const totalSize = rawFiles.reduce((s, f) => s + f.size, 0);
+  if (totalSize > MAX_TOTAL_BYTES) {
+    return NextResponse.json({ ok: false, error: "too_large" }, { status: 413 });
+  }
+
+  const attachments = await Promise.all(
+    rawFiles.map(async (f) => ({
+      filename: f.name || "anhang",
+      content: Buffer.from(await f.arrayBuffer()),
+      contentType: f.type || undefined,
+    }))
+  );
 
   const {
     SMTP_HOST = "smtp.gmail.com",
@@ -50,10 +70,9 @@ export async function POST(req: Request) {
     CONTACT_FROM,
   } = process.env;
 
-  // Ohne Zugangsdaten kann nicht versendet werden – klare Rückmeldung.
   if (!SMTP_USER || !SMTP_PASS) {
     console.warn(
-      "[contact] SMTP nicht konfiguriert – bitte SMTP_USER / SMTP_PASS in .env.local setzen."
+      "[contact] SMTP nicht konfiguriert – bitte SMTP_USER / SMTP_PASS setzen."
     );
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }
@@ -74,6 +93,10 @@ export async function POST(req: Request) {
     ["Unternehmen", company || "—"],
     ["E-Mail", email],
     ["Telefon", phone || "—"],
+    [
+      "Anhänge",
+      attachments.length ? attachments.map((a) => a.filename).join(", ") : "keine",
+    ],
   ];
 
   const html = `
@@ -83,7 +106,7 @@ export async function POST(req: Request) {
         ${rows
           .map(
             ([k, v]) =>
-              `<tr><td style="padding:6px 12px 6px 0;color:#7A7A7A;white-space:nowrap">${k}</td><td style="padding:6px 0"><strong>${escapeHtml(v)}</strong></td></tr>`
+              `<tr><td style="padding:6px 12px 6px 0;color:#7A7A7A;white-space:nowrap;vertical-align:top">${k}</td><td style="padding:6px 0"><strong>${escapeHtml(v)}</strong></td></tr>`
           )
           .join("")}
       </table>
@@ -106,6 +129,7 @@ export async function POST(req: Request) {
       subject: `Projektanfrage von ${name}${company ? ` (${company})` : ""}`,
       text,
       html,
+      attachments,
     });
     return NextResponse.json({ ok: true });
   } catch (err) {

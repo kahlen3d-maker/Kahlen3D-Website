@@ -12,7 +12,6 @@ const links = [
   { id: "services", href: "#leistungen" },
   { id: "industries", href: "#branchen" },
   { id: "about", href: "#ueber-uns" },
-  { id: "gallery", href: "#galerie" },
   { id: "contact", href: "#kontakt" },
 ] as const;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -11,6 +11,10 @@ import {
   Clock,
   Loader2,
   AlertCircle,
+  Paperclip,
+  FileText,
+  Image as ImageIcon,
+  X,
 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -19,38 +23,81 @@ import { siteConfig } from "@/lib/site";
 
 type Status = "idle" | "sending" | "success" | "error";
 
+const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // 4 MB – Grenze der Serverless-Funktion
+const ACCEPTED = "image/*,application/pdf,.pdf";
+const isAccepted = (f: File) =>
+  f.type.startsWith("image/") || f.type === "application/pdf";
+const formatSize = (bytes: number) =>
+  bytes < 1024 * 1024
+    ? `${Math.max(1, Math.round(bytes / 1024))} KB`
+    : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+
 export function Contact() {
   const { t } = useI18n();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const addFiles = (list: FileList | null) => {
+    if (!list || list.length === 0) return;
+    const incoming = Array.from(list);
+    const valid = incoming.filter(isAccepted);
+
+    const combined = [...files];
+    for (const f of valid) {
+      if (!combined.some((c) => c.name === f.name && c.size === f.size)) {
+        combined.push(f);
+      }
+    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
+
+    if (valid.length < incoming.length) {
+      setErrorMsg(t.contact.attachmentsType);
+      setStatus("error");
+      return;
+    }
+    if (combined.reduce((s, f) => s + f.size, 0) > MAX_TOTAL_BYTES) {
+      setErrorMsg(t.contact.attachmentsTooLarge);
+      setStatus("error");
+      return;
+    }
+    setFiles(combined);
+    if (status === "error") setStatus("idle");
+  };
+
+  const removeFile = (idx: number) =>
+    setFiles((prev) => prev.filter((_, i) => i !== idx));
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const fd = new FormData(form);
-    const payload = {
-      name: String(fd.get("name") ?? ""),
-      company: String(fd.get("company") ?? ""),
-      email: String(fd.get("email") ?? ""),
-      phone: String(fd.get("phone") ?? ""),
-      message: String(fd.get("message") ?? ""),
-      website: String(fd.get("website") ?? ""), // Honeypot
-    };
+
+    if (files.reduce((s, f) => s + f.size, 0) > MAX_TOTAL_BYTES) {
+      setErrorMsg(t.contact.attachmentsTooLarge);
+      setStatus("error");
+      return;
+    }
+
+    const fd = new FormData(form); // Textfelder + Honeypot
+    files.forEach((f) => fd.append("attachments", f));
 
     setStatus("sending");
     setErrorMsg("");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch("/api/contact", { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.ok) {
         form.reset();
+        setFiles([]);
         setStatus("success");
       } else {
-        setErrorMsg(data.error === "not_configured" ? t.contact.notConfigured : t.contact.error);
+        const map: Record<string, string> = {
+          not_configured: t.contact.notConfigured,
+          too_large: t.contact.attachmentsTooLarge,
+          bad_type: t.contact.attachmentsType,
+        };
+        setErrorMsg(map[data.error] ?? t.contact.error);
         setStatus("error");
       }
     } catch {
@@ -162,6 +209,65 @@ export function Contact() {
                         placeholder={t.contact.placeholder.message}
                         className={`${inputClass} resize-none`}
                       />
+                    </div>
+
+                    {/* Anhänge: Bilder / PDF */}
+                    <div>
+                      <label className={labelClass}>
+                        {t.contact.attachments}{" "}
+                        <span className="text-graphite-400">
+                          ({t.contact.fields.optional})
+                        </span>
+                      </label>
+                      <input
+                        ref={fileInputRef}
+                        id="attachments-input"
+                        type="file"
+                        multiple
+                        accept={ACCEPTED}
+                        onChange={(e) => addFiles(e.target.files)}
+                        className="sr-only"
+                      />
+                      <label
+                        htmlFor="attachments-input"
+                        className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-graphite-300 bg-white px-4 py-4 text-sm font-medium text-graphite-600 transition-colors hover:border-brand-400 hover:text-brand-500 dark:border-white/15 dark:bg-graphite-800 dark:text-graphite-300 dark:hover:border-brand-400"
+                      >
+                        <Paperclip size={16} /> {t.contact.attachmentsButton}
+                      </label>
+                      <p className="mt-1.5 text-xs text-graphite-400">
+                        {t.contact.attachmentsHint}
+                      </p>
+
+                      {files.length > 0 && (
+                        <ul className="mt-3 space-y-2">
+                          {files.map((f, i) => (
+                            <li
+                              key={`${f.name}-${f.size}`}
+                              className="flex items-center gap-3 rounded-lg border border-graphite-100 bg-white px-3 py-2 text-sm dark:border-white/10 dark:bg-graphite-800"
+                            >
+                              {f.type === "application/pdf" ? (
+                                <FileText size={16} className="shrink-0 text-brand-500 dark:text-brand-300" />
+                              ) : (
+                                <ImageIcon size={16} className="shrink-0 text-brand-500 dark:text-brand-300" />
+                              )}
+                              <span className="min-w-0 flex-1 truncate text-graphite-700 dark:text-graphite-200">
+                                {f.name}
+                              </span>
+                              <span className="shrink-0 text-xs text-graphite-400">
+                                {formatSize(f.size)}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => removeFile(i)}
+                                aria-label={t.contact.attachmentsRemove}
+                                className="shrink-0 text-graphite-400 transition-colors hover:text-red-500"
+                              >
+                                <X size={15} />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
 
                     {/* Honeypot – für Menschen unsichtbar, fängt Bots ab */}

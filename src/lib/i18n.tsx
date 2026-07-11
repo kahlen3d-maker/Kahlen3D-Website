@@ -23,7 +23,6 @@ const dictionaries = {
       services: "Leistungen",
       industries: "Branchen",
       about: "Über uns",
-      gallery: "Galerie",
       contact: "Kontakt",
       cta: "Anfrage",
     },
@@ -39,11 +38,6 @@ const dictionaries = {
     },
     ctaBand: {
       title: "Bereit für Ihr nächstes Bauteil?",
-    },
-    gallery: {
-      badge: "Referenzen",
-      title: "Ausgewählte Arbeiten",
-      subtitle: "Ein Einblick in gefertigte Bauteile, Prototypen und Projekte.",
     },
     stats: {
       title: "Fertigung, auf die man sich verlassen kann",
@@ -161,6 +155,12 @@ const dictionaries = {
       retry: "Erneut versuchen",
       directTitle: "Direkter Kontakt",
       required: "Pflichtfeld",
+      attachments: "Anhänge",
+      attachmentsHint: "Bilder oder PDF · optional · max. 4 MB insgesamt",
+      attachmentsButton: "Dateien auswählen",
+      attachmentsTooLarge: "Die Anhänge sind zu groß (max. 4 MB insgesamt).",
+      attachmentsType: "Nur Bilder und PDF-Dateien sind erlaubt.",
+      attachmentsRemove: "Entfernen",
     },
     footer: {
       tagline:
@@ -183,7 +183,6 @@ const dictionaries = {
       services: "Services",
       industries: "Industries",
       about: "About",
-      gallery: "Gallery",
       contact: "Contact",
       cta: "Request",
     },
@@ -199,11 +198,6 @@ const dictionaries = {
     },
     ctaBand: {
       title: "Ready for your next part?",
-    },
-    gallery: {
-      badge: "References",
-      title: "Selected work",
-      subtitle: "A glimpse of manufactured parts, prototypes and projects.",
     },
     stats: {
       title: "Manufacturing you can rely on",
@@ -319,6 +313,12 @@ const dictionaries = {
       retry: "Try again",
       directTitle: "Direct contact",
       required: "Required field",
+      attachments: "Attachments",
+      attachmentsHint: "Images or PDF · optional · max. 4 MB total",
+      attachmentsButton: "Choose files",
+      attachmentsTooLarge: "The attachments are too large (max. 4 MB total).",
+      attachmentsType: "Only images and PDF files are allowed.",
+      attachmentsRemove: "Remove",
     },
     footer: {
       tagline:
