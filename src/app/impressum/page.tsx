@@ -18,9 +18,9 @@ export default function ImpressumPage() {
         <br />
         Dustin Kahlen
         <br />
-        <span className="placeholder">[Straße und Hausnummer]</span>
+        Metgesheide 20
         <br />
-        <span className="placeholder">[PLZ] [Ort]</span>
+        41334 Nettetal
         <br />
         Deutschland
       </p>
@@ -32,20 +32,22 @@ export default function ImpressumPage() {
         E-Mail: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
       </p>
 
-      <h2>Umsatzsteuer</h2>
+      <h2>Umsatzsteuer-Identifikationsnummer</h2>
       <p>
-        <span className="placeholder">
-          [Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG, falls vorhanden.
-          Andernfalls dieser Hinweis: „Als Kleinunternehmer im Sinne von § 19
-          UStG wird keine Umsatzsteuer berechnet."]
-        </span>
+        Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
+        <br />
+        DE454566420
+      </p>
+      <p>
+        Als Kleinunternehmer im Sinne von § 19 UStG wird keine Umsatzsteuer
+        berechnet.
       </p>
 
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>
         Dustin Kahlen
         <br />
-        <span className="placeholder">[Anschrift wie oben]</span>
+        Metgesheide 20, 41334 Nettetal
       </p>
 
       <h2>Haftung für Inhalte</h2>
@@ -75,8 +77,7 @@ export default function ImpressumPage() {
       </p>
 
       <p style={{ marginTop: "2.5rem", fontSize: "0.85rem", opacity: 0.75 }}>
-        Stand: {new Date().getFullYear()}. Diese Angaben sind eine Vorlage und
-        ersetzen keine Rechtsberatung.
+        Stand: {new Date().getFullYear()}.
       </p>
     </LegalShell>
   );

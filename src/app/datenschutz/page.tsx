@@ -18,7 +18,7 @@ export default function DatenschutzPage() {
         <br />
         <strong>Kahlen3D</strong> – Dustin Kahlen
         <br />
-        <span className="placeholder">[Straße, PLZ Ort]</span>
+        Metgesheide 20, 41334 Nettetal
         <br />
         E-Mail: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
         <br />

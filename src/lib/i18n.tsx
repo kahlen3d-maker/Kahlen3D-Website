@@ -61,6 +61,8 @@ const dictionaries = {
       title: "Von der Idee zum Bauteil",
       subtitle:
         "Ein durchgängiges Leistungsspektrum – von der Konstruktion bis zum fertigen, einsatzbereiten Bauteil.",
+      showAll: "Alle Leistungen anzeigen",
+      showLess: "Weniger anzeigen",
       items: [
         {
           title: "FDM 3D-Druck",
@@ -219,6 +221,8 @@ const dictionaries = {
       title: "From idea to finished part",
       subtitle:
         "An end-to-end range of services – from design to the finished, ready-to-use part.",
+      showAll: "Show all services",
+      showLess: "Show less",
       items: [
         {
           title: "FDM 3D Printing",
