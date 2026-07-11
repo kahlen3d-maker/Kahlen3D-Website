@@ -25,7 +25,7 @@ export function Hero() {
       <div className="absolute inset-0 -z-10">
         <Image
           src={siteImages.hero}
-          alt="Industrielle additive Fertigung"
+          alt="Industrieller 3D-Druck"
           fill
           priority
           sizes="100vw"

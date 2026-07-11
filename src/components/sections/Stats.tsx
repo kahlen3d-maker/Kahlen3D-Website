@@ -24,12 +24,23 @@ export function Stats() {
             {t.stats.items.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 0.08}>
                 <div className="border-l-2 border-accent pl-4">
-                  <div className="font-display text-3xl font-bold tracking-tight text-graphite-800 dark:text-white sm:text-4xl">
-                    <AnimatedCounter
-                      value={stat.value}
-                      decimals={stat.decimals}
-                      suffix={stat.suffix}
-                    />
+                  <div
+                    className={`font-display font-bold tracking-tight text-graphite-800 dark:text-white ${
+                      stat.display ? "text-xl sm:text-3xl" : "text-3xl sm:text-4xl"
+                    }`}
+                  >
+                    {stat.display ? (
+                      <>
+                        {stat.display}
+                        {stat.suffix}
+                      </>
+                    ) : (
+                      <AnimatedCounter
+                        value={stat.value}
+                        decimals={stat.decimals}
+                        suffix={stat.suffix}
+                      />
+                    )}
                   </div>
                   <p className="mt-2 text-sm leading-snug text-graphite-500 dark:text-graphite-400">
                     {stat.label}

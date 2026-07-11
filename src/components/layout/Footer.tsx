@@ -9,11 +9,12 @@ export function Footer() {
   const { t } = useI18n();
 
   const nav = [
-    { id: "start", href: "#start" },
-    { id: "services", href: "#leistungen" },
-    { id: "industries", href: "#branchen" },
-    { id: "about", href: "#ueber-uns" },
-    { id: "contact", href: "#kontakt" },
+    { id: "start", href: "/#start" },
+    { id: "services", href: "/#leistungen" },
+    { id: "industries", href: "/#branchen" },
+    { id: "about", href: "/#ueber-uns" },
+    { id: "gallery", href: "/#galerie" },
+    { id: "contact", href: "/#kontakt" },
   ] as const;
 
   return (
@@ -36,10 +37,10 @@ export function Footer() {
           </FooterCol>
 
           <FooterCol title={t.footer.legalTitle}>
-            <a href="#" className="footer-link">
+            <a href="/impressum" className="footer-link">
               {t.footer.imprint}
             </a>
-            <a href="#" className="footer-link">
+            <a href="/datenschutz" className="footer-link">
               {t.footer.privacy}
             </a>
           </FooterCol>
@@ -61,7 +62,14 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.name}. {t.footer.rights}
           </p>
-          <p>{t.footer.disclaimer}</p>
+          <div className="flex gap-4">
+            <a href="/impressum" className="transition-colors hover:text-graphite-300">
+              {t.footer.imprint}
+            </a>
+            <a href="/datenschutz" className="transition-colors hover:text-graphite-300">
+              {t.footer.privacy}
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -34,6 +34,29 @@ body {
   @apply text-sm text-graphite-400 transition-colors hover:text-white;
 }
 
+/* Rechtstexte (Impressum / Datenschutz) */
+.legal-prose {
+  @apply leading-relaxed text-graphite-600 dark:text-graphite-300;
+}
+.legal-prose h2 {
+  @apply mb-3 mt-10 font-display text-xl font-semibold text-graphite-800 dark:text-white;
+}
+.legal-prose p {
+  @apply mb-4;
+}
+.legal-prose ul {
+  @apply mb-4 list-disc space-y-1 pl-5;
+}
+.legal-prose strong {
+  @apply font-semibold text-graphite-800 dark:text-white;
+}
+.legal-prose a {
+  @apply text-brand-500 underline dark:text-brand-300;
+}
+.legal-prose .placeholder {
+  @apply rounded bg-accent-100 px-1.5 py-0.5 text-graphite-700 dark:bg-accent-500/20 dark:text-accent-200;
+}
+
 /* Elegante Scrollbar (Desktop) */
 @media (pointer: fine) {
   ::-webkit-scrollbar {

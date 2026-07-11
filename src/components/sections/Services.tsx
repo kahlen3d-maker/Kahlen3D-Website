@@ -8,6 +8,7 @@ import {
   PencilRuler,
   Repeat,
   ScanLine,
+  ScanSearch,
   Settings2,
   ArrowUpRight,
   type LucideIcon,
@@ -22,6 +23,7 @@ const icons: LucideIcon[] = [
   Repeat, // Kleinserien
   PencilRuler, // CAD
   ScanLine, // Reverse Engineering
+  ScanSearch, // 3D-Scanning
   Settings2, // Bauteiloptimierung
 ];
 

@@ -20,13 +20,14 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kahlen3d.de"),
   title: {
-    default: "Kahlen3D – Engineering & Additive Manufacturing",
+    default: "Kahlen3D – 3D-Druck & Engineering",
     template: "%s · Kahlen3D",
   },
   description:
-    "Präzise Lösungen für Prototypen, Kleinserien und technische Bauteile – gefertigt mit modernster additiver Fertigung. FDM & Resin 3D-Druck, CAD-Konstruktion und Reverse Engineering.",
+    "Präzise Lösungen für Prototypen, Kleinserien und technische Bauteile – gefertigt mit modernstem 3D-Druck. FDM & Resin 3D-Druck, 3D-Scanning, CAD-Konstruktion und Reverse Engineering.",
   keywords: [
     "3D-Druck",
+    "3D-Scanning",
     "Additive Fertigung",
     "FDM",
     "Resin",
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
     "Reverse Engineering",
     "Engineering",
     "Kahlen3D",
+    "Nordrhein-Westfalen",
   ],
   authors: [{ name: "Kahlen3D" }],
   icons: {
@@ -46,9 +48,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "de_DE",
-    title: "Kahlen3D – Engineering & Additive Manufacturing",
+    title: "Kahlen3D – 3D-Druck & Engineering",
     description:
-      "Präzise Lösungen für Prototypen, Kleinserien und technische Bauteile – gefertigt mit modernster additiver Fertigung.",
+      "Präzise Lösungen für Prototypen, Kleinserien und technische Bauteile – gefertigt mit modernstem 3D-Druck.",
     siteName: "Kahlen3D",
   },
   robots: { index: true, follow: true },

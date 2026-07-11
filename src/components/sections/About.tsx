@@ -42,7 +42,7 @@ export function About() {
                   {t.about.badge.includes("About") ? "Est." : "Seit"} 2024
                 </div>
                 <p className="mt-1 text-xs uppercase tracking-wide text-graphite-400">
-                  Additive Manufacturing
+                  3D-Druck &amp; Engineering
                 </p>
               </motion.div>
             </div>

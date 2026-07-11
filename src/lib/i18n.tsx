@@ -23,15 +23,16 @@ const dictionaries = {
       services: "Leistungen",
       industries: "Branchen",
       about: "Über uns",
+      gallery: "Galerie",
       contact: "Kontakt",
       cta: "Anfrage",
     },
     hero: {
-      badge: "Additive Fertigung · Engineering",
+      badge: "3D-Druck · Engineering · Präzision",
       titleLine1: "Engineering.",
       titleLine2: "Additive Manufacturing.",
       subtitle:
-        "Präzise Lösungen für Prototypen, Kleinserien und technische Bauteile – gefertigt mit modernster additiver Fertigung.",
+        "Präzise Lösungen für Prototypen, Kleinserien und technische Bauteile – gefertigt mit modernstem 3D-Druck.",
       ctaPrimary: "Projekt anfragen",
       ctaSecondary: "Leistungen entdecken",
       scroll: "Mehr entdecken",
@@ -39,15 +40,20 @@ const dictionaries = {
     ctaBand: {
       title: "Bereit für Ihr nächstes Bauteil?",
     },
+    gallery: {
+      badge: "Referenzen",
+      title: "Ausgewählte Arbeiten",
+      subtitle: "Ein Einblick in gefertigte Bauteile, Prototypen und Projekte.",
+    },
     stats: {
       title: "Fertigung, auf die man sich verlassen kann",
       subtitle:
         "Moderne Anlagen, saubere Prozesse und ein klarer Fokus auf technische Qualität.",
       items: [
-        { value: 0.08, suffix: " mm", label: "Erreichbare Schichtauflösung", decimals: 2 },
-        { value: 2, suffix: "", label: "Druckverfahren – FDM & Resin", decimals: 0 },
-        { value: 100, suffix: " %", label: "Fokus auf technische Qualität", decimals: 0 },
-        { value: 24, suffix: " h", label: "Max. Reaktionszeit auf Anfragen", decimals: 0 },
+        { value: 0.08, suffix: " mm", label: "Erreichbare Schichtauflösung", decimals: 2, display: "" },
+        { value: 0, suffix: " mm", label: "Max. Bauraum (FDM)", decimals: 0, display: "420×420×500" },
+        { value: 2, suffix: "", label: "Druckverfahren – FDM & Resin", decimals: 0, display: "" },
+        { value: 24, suffix: " h", label: "Max. Reaktionszeit auf Anfragen", decimals: 0, display: "" },
       ],
     },
     services: {
@@ -81,6 +87,10 @@ const dictionaries = {
           text: "Rekonstruktion vorhandener Bauteile in präzise, weiterverwendbare CAD-Modelle.",
         },
         {
+          title: "3D-Scanning",
+          text: "Präzise Digitalisierung realer Objekte mit hochwertigen 3D-Scannern – die ideale Basis für Reverse Engineering, Qualitätsprüfung und Reproduktion.",
+        },
+        {
           title: "Bauteiloptimierung",
           text: "Gewicht, Stabilität und Fertigbarkeit im Gleichgewicht – für effiziente, belastbare Bauteile.",
         },
@@ -107,7 +117,7 @@ const dictionaries = {
       title: "Ein junges Unternehmen mit klarem Anspruch",
       paragraphs: [
         "Angefangen hat alles mit einem einzigen 3D-Drucker – zunächst rein hobbymäßig, aus Begeisterung für Technik, Konstruktion und das Fertigen eigener Teile. Aus dem Hobby wurden mit der Zeit mehr Drucker, mehr Erfahrung und immer mehr Kundenaufträge.",
-        "Heute steht Kahlen3D für additive Fertigung mit Anspruch: technische Bauteile in verlässlicher Qualität – von der ersten Idee bis zum einsatzbereiten Teil. Geblieben ist, was von Anfang an zählte – die Leidenschaft fürs Detail, ehrliche Beratung und der Anspruch an Präzision statt großer Versprechen.",
+        "Heute steht Kahlen3D für 3D-Druck mit Anspruch: technische Bauteile in verlässlicher Qualität – von der ersten Idee bis zum einsatzbereiten Teil. Geblieben ist, was von Anfang an zählte – die Leidenschaft fürs Detail, ehrliche Beratung und der Anspruch an Präzision statt großer Versprechen.",
       ],
       values: [
         { title: "Präzision", text: "Sorgfältige Prozesse für maßhaltige, reproduzierbare Ergebnisse." },
@@ -152,7 +162,7 @@ const dictionaries = {
     },
     footer: {
       tagline:
-        "Additive Fertigung und Engineering für Prototypen, Kleinserien und technische Bauteile.",
+        "3D-Druck und Engineering für Prototypen, Kleinserien und technische Bauteile.",
       navTitle: "Navigation",
       legalTitle: "Rechtliches",
       contactTitle: "Kontakt",
@@ -171,15 +181,16 @@ const dictionaries = {
       services: "Services",
       industries: "Industries",
       about: "About",
+      gallery: "Gallery",
       contact: "Contact",
       cta: "Request",
     },
     hero: {
-      badge: "Additive Manufacturing · Engineering",
+      badge: "3D Printing · Engineering · Precision",
       titleLine1: "Engineering.",
       titleLine2: "Additive Manufacturing.",
       subtitle:
-        "Precise solutions for prototypes, small series and technical parts – manufactured with state-of-the-art additive technology.",
+        "Precise solutions for prototypes, small series and technical parts – manufactured with state-of-the-art 3D printing.",
       ctaPrimary: "Request a project",
       ctaSecondary: "Explore services",
       scroll: "Discover more",
@@ -187,15 +198,20 @@ const dictionaries = {
     ctaBand: {
       title: "Ready for your next part?",
     },
+    gallery: {
+      badge: "References",
+      title: "Selected work",
+      subtitle: "A glimpse of manufactured parts, prototypes and projects.",
+    },
     stats: {
       title: "Manufacturing you can rely on",
       subtitle:
         "Modern equipment, clean processes and a clear focus on technical quality.",
       items: [
-        { value: 0.08, suffix: " mm", label: "Achievable layer resolution", decimals: 2 },
-        { value: 2, suffix: "", label: "Print technologies – FDM & Resin", decimals: 0 },
-        { value: 100, suffix: " %", label: "Focus on technical quality", decimals: 0 },
-        { value: 24, suffix: " h", label: "Max. response time on requests", decimals: 0 },
+        { value: 0.08, suffix: " mm", label: "Achievable layer resolution", decimals: 2, display: "" },
+        { value: 0, suffix: " mm", label: "Max. build volume (FDM)", decimals: 0, display: "420×420×500" },
+        { value: 2, suffix: "", label: "Print technologies – FDM & Resin", decimals: 0, display: "" },
+        { value: 24, suffix: " h", label: "Max. response time on requests", decimals: 0, display: "" },
       ],
     },
     services: {
@@ -229,6 +245,10 @@ const dictionaries = {
           text: "Reconstruction of existing parts into precise, reusable CAD models.",
         },
         {
+          title: "3D Scanning",
+          text: "Precise digitisation of real objects with high-quality 3D scanners – the ideal basis for reverse engineering, quality inspection and reproduction.",
+        },
+        {
           title: "Part Optimisation",
           text: "Weight, strength and manufacturability in balance – for efficient, durable parts.",
         },
@@ -254,7 +274,7 @@ const dictionaries = {
       title: "A young company with a clear ambition",
       paragraphs: [
         "It all started with a single 3D printer – at first purely as a hobby, driven by a passion for technology, design and making our own parts. Over time, the hobby grew into more printers, more experience and more and more customer projects.",
-        "Today, Kahlen3D stands for additive manufacturing with ambition: technical parts in reliable quality – from the first idea to the ready-to-use part. What has remained is what mattered from day one – an eye for detail, honest advice and a focus on precision instead of big promises.",
+        "Today, Kahlen3D stands for 3D printing with ambition: technical parts in reliable quality – from the first idea to the ready-to-use part. What has remained is what mattered from day one – an eye for detail, honest advice and a focus on precision instead of big promises.",
       ],
       values: [
         { title: "Precision", text: "Careful processes for dimensionally accurate, reproducible results." },
@@ -298,7 +318,7 @@ const dictionaries = {
     },
     footer: {
       tagline:
-        "Additive manufacturing and engineering for prototypes, small series and technical parts.",
+        "3D printing and engineering for prototypes, small series and technical parts.",
       navTitle: "Navigation",
       legalTitle: "Legal",
       contactTitle: "Contact",

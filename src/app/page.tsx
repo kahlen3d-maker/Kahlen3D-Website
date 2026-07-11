@@ -5,6 +5,7 @@ import { Stats } from "@/components/sections/Stats";
 import { Services } from "@/components/sections/Services";
 import { Industries } from "@/components/sections/Industries";
 import { About } from "@/components/sections/About";
+import { Gallery } from "@/components/sections/Gallery";
 import { CTABand } from "@/components/sections/CTABand";
 import { Contact } from "@/components/sections/Contact";
 
@@ -18,6 +19,7 @@ export default function Home() {
         <Services />
         <Industries />
         <About />
+        <Gallery />
         <CTABand />
         <Contact />
       </main>
