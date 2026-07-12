@@ -11,7 +11,6 @@ import {
   Repeat,
   ScanLine,
   ScanSearch,
-  Settings2,
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
@@ -29,7 +28,6 @@ const icons: LucideIcon[] = [
   PencilRuler, // CAD
   ScanLine, // Reverse Engineering
   ScanSearch, // 3D-Scanning
-  Settings2, // Bauteiloptimierung
 ];
 
 export function Services() {

@@ -45,7 +45,7 @@ const dictionaries = {
         "Moderne Anlagen, saubere Prozesse und ein klarer Fokus auf technische Qualität.",
       items: [
         { value: 0.08, suffix: " mm", label: "Erreichbare Schichtauflösung", decimals: 2, display: "" },
-        { value: 0, suffix: " mm", label: "Max. Bauraum (FDM)", decimals: 0, display: "420×420×500" },
+        { value: 0, suffix: " mm", label: "Max. Bauraum (FDM)", decimals: 0, display: "420 × 420 × 500" },
         { value: 2, suffix: "", label: "Druckverfahren – FDM & Resin", decimals: 0, display: "" },
         { value: 24, suffix: " h", label: "Max. Reaktionszeit auf Anfragen", decimals: 0, display: "" },
       ],
@@ -85,10 +85,6 @@ const dictionaries = {
         {
           title: "3D-Scanning",
           text: "Präzise Digitalisierung realer Objekte mit hochwertigen 3D-Scannern – die ideale Basis für Reverse Engineering, Qualitätsprüfung und Reproduktion.",
-        },
-        {
-          title: "Bauteiloptimierung",
-          text: "Gewicht, Stabilität und Fertigbarkeit im Gleichgewicht – für effiziente, belastbare Bauteile.",
         },
       ],
     },
@@ -205,7 +201,7 @@ const dictionaries = {
         "Modern equipment, clean processes and a clear focus on technical quality.",
       items: [
         { value: 0.08, suffix: " mm", label: "Achievable layer resolution", decimals: 2, display: "" },
-        { value: 0, suffix: " mm", label: "Max. build volume (FDM)", decimals: 0, display: "420×420×500" },
+        { value: 0, suffix: " mm", label: "Max. build volume (FDM)", decimals: 0, display: "420 × 420 × 500" },
         { value: 2, suffix: "", label: "Print technologies – FDM & Resin", decimals: 0, display: "" },
         { value: 24, suffix: " h", label: "Max. response time on requests", decimals: 0, display: "" },
       ],
@@ -245,10 +241,6 @@ const dictionaries = {
         {
           title: "3D Scanning",
           text: "Precise digitisation of real objects with high-quality 3D scanners – the ideal basis for reverse engineering, quality inspection and reproduction.",
-        },
-        {
-          title: "Part Optimisation",
-          text: "Weight, strength and manufacturability in balance – for efficient, durable parts.",
         },
       ],
     },

@@ -26,7 +26,9 @@ export function Stats() {
                 <div className="border-l-2 border-accent pl-4">
                   <div
                     className={`font-display font-bold tracking-tight text-graphite-800 dark:text-white ${
-                      stat.display ? "text-xl sm:text-3xl" : "text-3xl sm:text-4xl"
+                      stat.display
+                        ? "text-lg leading-tight sm:text-2xl"
+                        : "text-3xl sm:text-4xl"
                     }`}
                   >
                     {stat.display ? (
