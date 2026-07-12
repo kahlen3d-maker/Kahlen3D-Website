@@ -14,6 +14,7 @@ import {
   Paperclip,
   FileText,
   Image as ImageIcon,
+  Box,
   X,
 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -24,9 +25,18 @@ import { siteConfig } from "@/lib/site";
 type Status = "idle" | "sending" | "success" | "error";
 
 const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // 4 MB – Grenze der Serverless-Funktion
-const ACCEPTED = "image/*,application/pdf,.pdf";
+const ACCEPTED = "image/*,.pdf,.stl,.step,.stp,.3mf,.obj,.igs,.iges";
+// Prüfung per Dateiendung – 3D-Dateien (STL etc.) haben oft keinen MIME-Typ.
+const ACCEPTED_EXT = [
+  "png", "jpg", "jpeg", "gif", "webp", "heic", "heif", "bmp", "tiff",
+  "pdf", "stl", "step", "stp", "3mf", "obj", "igs", "iges",
+];
+const extOf = (name: string) => {
+  const i = name.lastIndexOf(".");
+  return i >= 0 ? name.slice(i + 1).toLowerCase() : "";
+};
 const isAccepted = (f: File) =>
-  f.type.startsWith("image/") || f.type === "application/pdf";
+  f.type.startsWith("image/") || ACCEPTED_EXT.includes(extOf(f.name));
 const formatSize = (bytes: number) =>
   bytes < 1024 * 1024
     ? `${Math.max(1, Math.round(bytes / 1024))} KB`
@@ -247,8 +257,10 @@ export function Contact() {
                             >
                               {f.type === "application/pdf" ? (
                                 <FileText size={16} className="shrink-0 text-brand-500 dark:text-brand-300" />
-                              ) : (
+                              ) : f.type.startsWith("image/") ? (
                                 <ImageIcon size={16} className="shrink-0 text-brand-500 dark:text-brand-300" />
+                              ) : (
+                                <Box size={16} className="shrink-0 text-brand-500 dark:text-brand-300" />
                               )}
                               <span className="min-w-0 flex-1 truncate text-graphite-700 dark:text-graphite-200">
                                 {f.name}

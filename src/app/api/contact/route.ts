@@ -6,8 +6,19 @@ export const runtime = "nodejs";
 const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // 4 MB gesamt
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-const isAcceptedType = (type: string) =>
-  type.startsWith("image/") || type === "application/pdf";
+
+// Erlaubte Dateiendungen – 3D-Dateien (STL etc.) haben oft keinen MIME-Typ,
+// daher wird primär über die Endung geprüft.
+const ACCEPTED_EXT = new Set([
+  "png", "jpg", "jpeg", "gif", "webp", "heic", "heif", "bmp", "tiff",
+  "pdf", "stl", "step", "stp", "3mf", "obj", "igs", "iges",
+]);
+const extOf = (name: string) => {
+  const i = name.lastIndexOf(".");
+  return i >= 0 ? name.slice(i + 1).toLowerCase() : "";
+};
+const isAcceptedFile = (f: File) =>
+  f.type.startsWith("image/") || ACCEPTED_EXT.has(extOf(f.name));
 const escapeHtml = (v: string) =>
   v.replace(/[&<>"']/g, (c) => (
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string
@@ -44,7 +55,7 @@ export async function POST(req: Request) {
     .filter((v): v is File => v instanceof File && v.size > 0);
 
   for (const f of rawFiles) {
-    if (!isAcceptedType(f.type)) {
+    if (!isAcceptedFile(f)) {
       return NextResponse.json({ ok: false, error: "bad_type" }, { status: 415 });
     }
   }
