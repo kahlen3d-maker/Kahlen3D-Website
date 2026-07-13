@@ -19,12 +19,13 @@ import {
 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { upload } from "@vercel/blob/client";
 import { useI18n } from "@/lib/i18n";
 import { siteConfig } from "@/lib/site";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // 4 MB – Grenze der Serverless-Funktion
+const MAX_FILE_BYTES = 50 * 1024 * 1024; // 50 MB pro Datei (Direkt-Upload in Blob)
 const ACCEPTED = "image/*,.pdf,.stl,.step,.stp,.3mf,.obj,.igs,.iges";
 // Prüfung per Dateiendung – 3D-Dateien (STL etc.) haben oft keinen MIME-Typ.
 const ACCEPTED_EXT = [
@@ -67,7 +68,7 @@ export function Contact() {
       setStatus("error");
       return;
     }
-    if (combined.reduce((s, f) => s + f.size, 0) > MAX_TOTAL_BYTES) {
+    if (combined.some((f) => f.size > MAX_FILE_BYTES)) {
       setErrorMsg(t.contact.attachmentsTooLarge);
       setStatus("error");
       return;
@@ -83,34 +84,55 @@ export function Contact() {
     e.preventDefault();
     const form = e.currentTarget;
 
-    if (files.reduce((s, f) => s + f.size, 0) > MAX_TOTAL_BYTES) {
+    if (files.some((f) => f.size > MAX_FILE_BYTES)) {
       setErrorMsg(t.contact.attachmentsTooLarge);
       setStatus("error");
       return;
     }
 
-    const fd = new FormData(form); // Textfelder + Honeypot
-    files.forEach((f) => fd.append("attachments", f));
-
     setStatus("sending");
     setErrorMsg("");
+
     try {
-      const res = await fetch("/api/contact", { method: "POST", body: fd });
+      // 1) Dateien direkt in den (privaten) Blob-Speicher laden (umgeht das Funktions-Limit)
+      const uploaded: { pathname: string; name: string; size: number }[] = [];
+      for (const f of files) {
+        const blob = await upload(f.name, f, {
+          access: "private",
+          handleUploadUrl: "/api/upload",
+          multipart: true,
+        });
+        uploaded.push({ pathname: blob.pathname, name: f.name, size: f.size });
+      }
+
+      // 2) Anfrage + Datei-Links senden
+      const fd = new FormData(form);
+      const payload = {
+        name: String(fd.get("name") ?? ""),
+        company: String(fd.get("company") ?? ""),
+        email: String(fd.get("email") ?? ""),
+        phone: String(fd.get("phone") ?? ""),
+        message: String(fd.get("message") ?? ""),
+        website: String(fd.get("website") ?? ""), // Honeypot
+        files: uploaded,
+      };
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.ok) {
         form.reset();
         setFiles([]);
         setStatus("success");
       } else {
-        const map: Record<string, string> = {
-          not_configured: t.contact.notConfigured,
-          too_large: t.contact.attachmentsTooLarge,
-          bad_type: t.contact.attachmentsType,
-        };
-        setErrorMsg(map[data.error] ?? t.contact.error);
+        setErrorMsg(data.error === "not_configured" ? t.contact.notConfigured : t.contact.error);
         setStatus("error");
       }
     } catch {
+      // Fehler beim Upload oder Versand
       setErrorMsg(t.contact.error);
       setStatus("error");
     }
