@@ -21,7 +21,7 @@ export function Footer() {
       <div className="mx-auto max-w-wide px-5 py-16 sm:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
-            <Logo onDark />
+            <Logo onDark variant="stacked" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-graphite-400">
               {t.footer.tagline}
             </p>
