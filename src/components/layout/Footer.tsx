@@ -13,6 +13,7 @@ export function Footer() {
     { id: "services", href: "/#leistungen" },
     { id: "industries", href: "/#branchen" },
     { id: "about", href: "/#ueber-uns" },
+    { id: "shop", href: "/shop" },
     { id: "contact", href: "/#kontakt" },
   ] as const;
 

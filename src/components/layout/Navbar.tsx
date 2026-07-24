@@ -2,17 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, Moon, ShoppingCart, Sun, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { useCart } from "@/components/shop/CartProvider";
 import { useI18n } from "@/lib/i18n";
 
 const links = [
-  { id: "start", href: "#start" },
-  { id: "services", href: "#leistungen" },
-  { id: "industries", href: "#branchen" },
-  { id: "about", href: "#ueber-uns" },
-  { id: "contact", href: "#kontakt" },
+  { id: "start", href: "/#start" },
+  { id: "services", href: "/#leistungen" },
+  { id: "industries", href: "/#branchen" },
+  { id: "about", href: "/#ueber-uns" },
+  { id: "shop", href: "/shop" },
+  { id: "contact", href: "/#kontakt" },
 ] as const;
 
 export function Navbar() {
@@ -20,6 +22,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { t, locale, setLocale } = useI18n();
+  const { count, setOpen: openCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -49,7 +52,7 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-[72px] max-w-wide items-center justify-between px-5 sm:px-8">
-        <a href="#start" className="relative z-10" aria-label="Kahlen3D – Start">
+        <a href="/#start" className="relative z-10" aria-label="Kahlen3D – Start">
           <Logo />
         </a>
 
@@ -78,8 +81,22 @@ export function Navbar() {
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
+          <button
+            type="button"
+            onClick={() => openCart(true)}
+            aria-label={t.shop.cart}
+            className="relative flex h-9 w-9 items-center justify-center rounded-full text-graphite-600 transition-colors hover:bg-graphite-50 hover:text-graphite-900 dark:text-graphite-200 dark:hover:bg-white/10 dark:hover:text-white"
+          >
+            <ShoppingCart size={18} />
+            {count > 0 && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-brand-500 px-1 text-[10px] font-bold leading-none text-white">
+                {count}
+              </span>
+            )}
+          </button>
+
           <a
-            href="#kontakt"
+            href="/#kontakt"
             className="hidden rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-600 hover:shadow-card sm:inline-flex"
           >
             {t.nav.cta}
@@ -119,7 +136,7 @@ export function Navbar() {
                 </a>
               ))}
               <a
-                href="#kontakt"
+                href="/#kontakt"
                 onClick={() => setOpen(false)}
                 className="mt-2 rounded-xl bg-brand-500 px-4 py-3 text-center text-base font-semibold text-white transition-colors hover:bg-brand-600"
               >

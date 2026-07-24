@@ -3,6 +3,8 @@ import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { LanguageProvider } from "@/lib/i18n";
+import { CartProvider } from "@/components/shop/CartProvider";
+import { CartDrawer } from "@/components/shop/CartDrawer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -76,7 +78,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-white font-sans text-graphite-700 antialiased dark:bg-graphite-950 dark:text-graphite-200">
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <CartProvider>
+              {children}
+              <CartDrawer />
+            </CartProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
